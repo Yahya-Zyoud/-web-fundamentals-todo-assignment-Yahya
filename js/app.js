@@ -121,18 +121,18 @@ if (form) {
         renderTask(data.task);
         input.value = "";
         setStatus("task added.");
-        setTimeout(() => setStatus(""), 2500);
+        setTimeout(() => setStatus(""), 1500);
 
       }
       else {
         setStatus("failed to add the task", true);
-        setTimeout(() => setStatus(""), 2500);
+        setTimeout(() => setStatus(""), 2000);
       }
     }
     catch (error) {
       console.error(error);
       setStatus(error.message, true);
-      setTimeout(() => setStatus(""), 2500);
+      setTimeout(() => setStatus(""), 2000);
     }
 
 
@@ -172,31 +172,34 @@ function renderTask(task) {
   list.appendChild(li);
 
   deleteButton.addEventListener("click", async function () {
-    const url = API_BASE + "/delete.php?stdid=" + STUDENT_ID + "&key=" + API_KEY + "&id=" + task.id;
-    if (!confirm("Delete this task?")) return;
-
-
-    setStatus("deleting task....");
-    try {
-      const resp = await fetch(url)
-      const data = await resp.json();
-      if (data.success) {
-        li.remove();
-        setStatus("deleting the task....");
-        setTimeout(() => setStatus(""), 2500);
-
-      }
-      else {
-        setStatus("failed to delete task an error occured", true);
-      }
-    }
-    catch (err) {
-
-      console.error(err);
-      setStatus(err.message, true);
-    }
-
+     deleteTask(task.id ,li);
 
   })
 
+}
+
+async function deleteTask(id, liElement) {
+
+  const url = `${API_BASE}/delete.php?stdid=${STUDENT_ID}&key=${API_KEY}&id=${id}`;
+
+  if (!confirm("Delete this task?")) return;
+
+  setStatus("deleting task....");
+
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    if (data.success) {
+      liElement.remove();
+      setStatus("task deleted....");
+      setTimeout(() => setStatus(""), 1500);
+    } else {
+      setStatus("failed to delete task an error occured", true);
+    }
+
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message, true);
+  }
 }
