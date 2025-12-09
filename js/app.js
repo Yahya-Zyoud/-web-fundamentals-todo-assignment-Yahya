@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     setStatus("");
 
     if (data.tasks && Array.isArray(data.tasks)) {
-      data.tasks.forEach(task => renderTask(task));
+      data.tasks.forEach(task => appendTaskToList(task));
     }
     else {
       setStatus("there is no tasks found");
@@ -118,7 +118,7 @@ if (form) {
 
 
       if (data && data.task) {
-        renderTask(data.task);
+        appendTaskToList(data.task);
         input.value = "";
         setStatus("task added.");
         setTimeout(() => setStatus(""), 1500);
@@ -172,11 +172,17 @@ function renderTask(task) {
   list.appendChild(li);
 
   deleteButton.addEventListener("click", async function () {
-     deleteTask(task.id ,li);
+    deleteTask(task.id, li);
 
   })
 
 }
+
+function appendTaskToList(task) {
+  renderTask(task)
+ 
+}
+
 
 async function deleteTask(id, liElement) {
 
