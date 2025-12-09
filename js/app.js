@@ -198,7 +198,7 @@ async function deleteTask(id, liElement) {
 
     if (data.success) {
       liElement.remove();
-      setStatus("task deleted....");
+      setStatus("task deleted.");
       setTimeout(() => setStatus(""), 1500);
     } else {
       setStatus("failed to delete task an error occured", true);
