@@ -161,28 +161,28 @@ function renderTask(task) {
   const li = document.createElement("li");
   li.className = "task-item";
 
-  const taskTitle = document.createElement("span");
-  taskTitle.textContent = task.title;
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "delete";
-  deleteButton.classList.add("task-delete");
-  li.appendChild(taskTitle);
-  li.appendChild(deleteButton);
+  const span = document.createElement("span");
+  span.textContent = task.title;
 
-  list.appendChild(li);
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "Delete";
+  delBtn.className = "delete-btn";
 
-  deleteButton.addEventListener("click", async function () {
+  delBtn.addEventListener("click", () => {
     deleteTask(task.id, li);
+  });
 
-  })
-
-}
-
-function appendTaskToList(task) {
-  renderTask(task)
+  li.appendChild(span);
+  li.appendChild(delBtn);
+  list.appendChild(li);
  
 }
 
+function appendTaskToList(task)
+{
+
+  renderTask(task);
+}
 
 async function deleteTask(id, liElement) {
 
