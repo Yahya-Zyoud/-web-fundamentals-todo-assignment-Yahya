@@ -166,7 +166,7 @@ function renderTask(task) {
 
   const delBtn = document.createElement("button");
   delBtn.textContent = "Delete";
-  delBtn.className = "delete-btn";
+  delBtn.className = "task-delete";
 
   delBtn.addEventListener("click", () => {
     deleteTask(task.id, li);
